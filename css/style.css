@@ -19,6 +19,7 @@
 * { box-sizing: border-box; }
 
 html, body { margin: 0; height: 100%; }
+html.lock { overflow: hidden; }          /* home page can't scroll to the project page */
 
 body {
   font-family: var(--font);
@@ -43,7 +44,13 @@ body {
    INTRO — horizontal deck of 2 full-screen panels (home → cover)
    Pinned to the top of the page; Work scrolls in below it.
    ========================================================= */
-.intro { position: relative; height: 100vh; overflow: hidden; }
+.intro {
+  position: sticky;                /* cover stays pinned while Work slides up over it */
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 0;
+}
 .deck__track {
   display: flex;
   width: 200vw;
@@ -77,13 +84,13 @@ body {
 .nav__link {
   color: inherit;                  /* stop the default blue link color */
   text-decoration: none;
-  opacity: 0.7;
+  opacity: 0.9;
   transition: opacity 0.2s;
 }
 .nav__link:hover { opacity: 1; }
 .nav__link.is-active { font-weight: 700; opacity: 1; }
-.nav--dark    { color: #f2f2f3; }  /* work panel (dark header) */
-.nav--onlight { color: #2e2e30; }  /* start panel over light home.png */
+.nav--dark    { color: #ffffff; }  /* bright white — cover + work panels */
+.nav--onlight { color: #2e2e30; }  /* dark text over a light background */
 
 /* =========================================================
    Shared: blurred typographic echoes
@@ -106,7 +113,7 @@ body {
   cursor: pointer;
 }
 
-/* Full-bleed start image (home.png) */
+/* Full-bleed start image (home_original.png — clean background) */
 .home-img {
   position: absolute;
   inset: 0;
@@ -117,6 +124,47 @@ body {
   z-index: 0;
   user-select: none;
   -webkit-user-drag: none;
+}
+
+/* Text/content recreated over home_original.png (everything but START) */
+.home__content {
+  position: absolute;
+  z-index: 3;
+  left: 0; top: 0;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 clamp(1.5rem, 5vw, 5rem);
+}
+.home__title {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.1vw, 2.7rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #3a3a3c;
+  animation: rise 0.9s var(--ease) both;
+}
+.home__subtitle {
+  margin: 0.6rem 0 0;
+  font-size: clamp(0.78rem, 1.25vw, 1.02rem);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  color: #9a9a9e;
+  animation: rise 0.9s var(--ease) 0.1s both;
+}
+.home__meta { text-align: center; margin-top: 3rem; animation: rise 0.9s var(--ease) 0.2s both; }
+.home__tags { margin: 0 0 0.9rem; font-size: 0.66rem; font-weight: 300; letter-spacing: 0.06em; color: #9a9a9e; }
+.home__name { margin: 0; font-size: 0.68rem; font-weight: 300; letter-spacing: 0.32em; color: #9a9a9e; }
+.home__social { display: flex; gap: 1.5rem; justify-content: center; margin-top: 2.4rem; }
+.social-link { color: #8a8a8e; display: inline-flex; transition: color 0.25s, transform 0.25s; }
+.social-link:hover { color: #333335; transform: translateY(-2px); }
+
+@media (max-width: 760px) {
+  .home__content { width: 100%; padding: 0 2rem; }
+  .home__meta { text-align: left; }
+  .home__social { justify-content: flex-start; }
 }
 
 .hint {
@@ -138,22 +186,57 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-dark);
+  background: var(--bg-dark);       /* dark surround behind the transparent frosted panel */
 }
-/* Full-bleed cover image (1st_cover.png) */
+/* Frosted panel image (1st_cover.png) — transparent PNG, shown large over the dark bg */
 .cover-img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  transform: scale(1.5);           /* enlarge the frosted panel; dark surround still shows */
+  transform-origin: center;
   display: block;
   z-index: 0;
   user-select: none;
   -webkit-user-drag: none;
 }
 
-/* Down chevron */
+/* Centered "BEYOND BOUNDARY" over the frosted panel */
+.cover__center {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;            /* only the word itself is interactive */
+}
+.cover__word {
+  pointer-events: auto;
+  display: inline-block;
+  margin: 0;
+  font-size: clamp(1.8rem, 5.2vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  text-shadow: 0 2px 26px rgba(110, 110, 115, 0.5);
+}
+/* each letter is its own hover target */
+.cover__word .ltr {
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.28s var(--ease), text-shadow 0.28s var(--ease);
+}
+.cover__word .ltr.spc { width: 0.4em; }   /* the gap between the two words */
+/* "chosen": the letter under the cursor lifts + grows on its own */
+.cover__word .ltr:hover {
+  transform: translateY(-0.14em) scale(1.38);
+  text-shadow: 0 8px 30px rgba(55, 55, 60, 0.7);
+}
+
+/* Down chevron (light, for the dark cover) */
 .chevron {
   position: absolute;
   bottom: 2rem; left: 50%;
@@ -175,20 +258,13 @@ body {
    ========================================================= */
 .panel--work {
   position: relative;
+  z-index: 2;                      /* slides up OVER the pinned cover */
   width: 100%;
   min-height: 100vh;
-  background: #c9c9cc;
+  background: #a2a2a5 url("../image/background_fill.png") center center / cover no-repeat;
   padding-bottom: 4rem;
   overflow: hidden;
-}
-.work__glow {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 320px;
-  background:
-    radial-gradient(60% 120% at 50% -10%, #f4f4f5 0%, rgba(200,200,204,0.4) 45%, rgba(58,58,60,0) 75%),
-    linear-gradient(180deg, #343436 0%, #4a4a4d 40%, #c9c9cc 100%);
-  z-index: 0;
+  box-shadow: 0 -30px 70px rgba(0, 0, 0, 0.5);   /* lift where it overlaps the cover */
 }
 
 .work__grid {
@@ -283,6 +359,47 @@ body {
   transition: background 0.2s, transform 0.2s;
 }
 .to-top:hover { background: #fff; transform: translateY(-2px); }
+
+/* =========================================================
+   Lightbox — full project image on click
+   ========================================================= */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 5vh 5vw;
+  background: rgba(10, 10, 12, 0.93);
+  cursor: zoom-out;
+}
+.lightbox.open { display: flex; animation: fade 0.25s ease; }
+.lightbox__img {
+  max-width: 92vw;
+  max-height: 82vh;
+  object-fit: contain;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6);
+}
+.lightbox__cap {
+  position: absolute;
+  bottom: 3.5vh; left: 0; right: 0;
+  text-align: center;
+  color: #ededee;
+  letter-spacing: 0.14em;
+  font-size: 0.85rem;
+}
+.lightbox__close {
+  position: absolute;
+  top: 2.5vh; right: 3vw;
+  background: none; border: none;
+  color: #ededee;
+  font-size: 2.2rem; line-height: 1;
+  cursor: pointer;
+  opacity: 0.8; transition: opacity 0.2s;
+}
+.lightbox__close:hover { opacity: 1; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 
 /* =========================================================
    Custom cursor — soft gray blurred square with a trailing tail

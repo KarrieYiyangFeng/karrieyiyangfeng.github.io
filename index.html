@@ -17,23 +17,46 @@
 
       <!-- PANEL 0 — START (home.png). Click anywhere → slide left to cover. -->
       <section class="panel panel--home" id="panel-home" data-advance="1" role="button" tabindex="0" aria-label="Enter — click anywhere to continue">
-        <img class="home-img" src="image/home.png" alt="Beyond Boundaries" />
+        <img class="home-img" src="image/home_original.png" alt="" />
 
-        <nav class="nav nav--onlight">
-          <div class="nav__left">
-            <a href="#" class="nav__link is-active" data-goto="0">Home</a>
-            <a href="#" class="nav__link" data-scrollto="work">Work</a>
+        <div class="home__content">
+          <h1 class="home__title">BEYOND BOUNDARIES</h1>
+          <p class="home__subtitle">Designing Interactions Between Systems</p>
+
+          <div class="home__meta">
+            <p class="home__tags">Spatial Design&nbsp;&nbsp;|&nbsp;&nbsp;Human Interaction&nbsp;&nbsp;|&nbsp;&nbsp;Material Systems&nbsp;&nbsp;|&nbsp;&nbsp;Emerging Technology</p>
+            <p class="home__name">KARRIE YIYANG FENG</p>
+
+            <div class="home__social">
+              <a href="https://www.linkedin.com/in/yiyang-feng-fyy" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.82-2.05 3.75-2.05C20.4 8.65 21 11.1 21 14.25V21h-4v-5.9c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21H9z"/></svg>
+              </a>
+              <a href="mailto:yfeng011210@gmail.com" aria-label="Email" class="social-link">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>
+              </a>
+            </div>
           </div>
-          <div class="nav__title">KARRIE YIYANG FENG</div>
-          <div class="nav__right"></div>
-        </nav>
+        </div>
 
         <div class="hint" aria-hidden="true">click anywhere to begin</div>
       </section>
 
       <!-- PANEL 1 — COVER (1st_cover.png). Down arrow → scroll DOWN to work. -->
       <section class="panel panel--cover" id="panel-cover">
-        <img class="cover-img" src="image/1st_cover.png" alt="Beyond Boundary — scroll to see my work" />
+        <img class="cover-img" src="image/1st_cover.png" alt="" />
+
+        <nav class="nav nav--dark">
+          <div class="nav__left">
+            <a href="#" class="nav__link" data-goto="0">Home</a>
+            <a href="#" class="nav__link" data-scrollto="work">Work</a>
+          </div>
+          <div class="nav__title">KARRIE YIYANG FENG</div>
+          <div class="nav__right"></div>
+        </nav>
+
+        <div class="cover__center">
+          <h2 class="cover__word" aria-label="BEYOND BOUNDARY"><span class="ltr">B</span><span class="ltr">E</span><span class="ltr">Y</span><span class="ltr">O</span><span class="ltr">N</span><span class="ltr">D</span><span class="ltr spc" aria-hidden="true"></span><span class="ltr">B</span><span class="ltr">O</span><span class="ltr">U</span><span class="ltr">N</span><span class="ltr">D</span><span class="ltr">A</span><span class="ltr">R</span><span class="ltr">Y</span></h2>
+        </div>
 
         <button class="chevron" data-scrollto="work" aria-label="Scroll down to view work">
           <svg viewBox="0 0 40 24" width="40" height="24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6l16 14L36 6"/></svg>
@@ -53,8 +76,6 @@
       <div class="nav__title">KARRIE YIYANG FENG</div>
       <div class="nav__right"></div>
     </nav>
-
-    <div class="work__glow" aria-hidden="true"></div>
 
     <div class="work__grid">
       <!-- 1 --><a class="tile" href="#" data-project="between-tides">
@@ -99,6 +120,13 @@
       <span>© <span id="year"></span> Karrie Yiyang Feng · Beyond Boundaries</span>
     </footer>
   </section>
+
+  <!-- Lightbox: opens the full project image on click -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" aria-label="Close">&times;</button>
+    <img class="lightbox__img" src="" alt="" />
+    <div class="lightbox__cap"></div>
+  </div>
 
   <!-- Back to start (fixed; appears once you've scrolled to work) -->
   <button class="to-top" data-scrollto="top" aria-label="Back to start">

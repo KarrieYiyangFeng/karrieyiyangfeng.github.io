@@ -16,10 +16,15 @@
   var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  // --- Scroll lock (home page cannot scroll to the project page) ---
+  function lock()   { document.documentElement.classList.add('lock'); }
+  function unlock() { document.documentElement.classList.remove('lock'); }
+
   // --- Horizontal deck: home (0) <-> cover (1) ---
   function deckTo(index) {
     deck = Math.max(0, Math.min(1, index));
     track.style.transform = 'translateX(-' + (deck * 100) + 'vw)';
+    if (deck === 0) lock(); else unlock();   // only the cover can scroll down to work
   }
 
   // --- Vertical: scroll down to Work / back up to the intro ---
@@ -27,8 +32,11 @@
     if (workEl) workEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   function scrollToTop() {
+    unlock();                                  // allow the scroll-up animation
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    deckTo(0);
+    deck = 0;
+    track.style.transform = 'translateX(0)';
+    setTimeout(lock, 700);                     // re-lock once we're back on home
   }
 
   // Expose for debugging
@@ -52,7 +60,10 @@
   // --- Panel 0: click anywhere slides left to the cover ---
   var home = document.querySelector('[data-advance]');
   if (home) {
-    home.addEventListener('click', function () { deckTo(1); });
+    home.addEventListener('click', function (e) {
+      if (e.target.closest('a')) return;   // let LinkedIn/email links work
+      deckTo(1);
+    });
     home.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); deckTo(1); }
     });
@@ -62,7 +73,7 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'ArrowRight') deckTo(deck + 1);
     else if (e.key === 'ArrowLeft') deckTo(deck - 1);
-    else if (e.key === 'ArrowDown' && window.scrollY < 10) { e.preventDefault(); scrollToWork(); }
+    else if (e.key === 'ArrowDown' && deck === 1 && window.scrollY < 10) { e.preventDefault(); scrollToWork(); }
   });
 
   // --- Show the round "back to start" button once we're past the intro ---
@@ -82,6 +93,46 @@
   });
 
   deckTo(0);
+})();
+
+/* =========================================================
+   Lightbox — click a project tile to view the full image
+   ========================================================= */
+(function () {
+  var lb = document.getElementById('lightbox');
+  if (!lb) return;
+  var img = lb.querySelector('.lightbox__img');
+  var cap = lb.querySelector('.lightbox__cap');
+
+  function open(src, alt, caption) {
+    img.src = src; img.alt = alt || '';
+    cap.textContent = caption || '';
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+  }
+  function close() {
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    img.src = '';
+  }
+
+  document.querySelectorAll('.tile').forEach(function (tile) {
+    tile.addEventListener('click', function (e) {
+      e.preventDefault();
+      var im = tile.querySelector('img');
+      if (!im) return;                       // empty placeholder → nothing to show
+      var t = tile.querySelector('.tile__title');
+      var y = tile.querySelector('.tile__year');
+      var title = t ? t.textContent : '';
+      var caption = title + (y && y.textContent ? '  ·  ' + y.textContent : '');
+      open(im.currentSrc || im.src, title, caption);
+    });
+  });
+
+  lb.addEventListener('click', function (e) {
+    if (e.target === lb || e.target.closest('.lightbox__close')) close();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
 })();
 
 /* =========================================================
