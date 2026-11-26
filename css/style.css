@@ -19,7 +19,8 @@
 * { box-sizing: border-box; }
 
 html, body { margin: 0; height: 100%; }
-html.lock { overflow: hidden; }          /* home page can't scroll to the project page */
+/* home page can't scroll to the project page (body is the scroller because of overflow-x) */
+html.lock, html.lock body { overflow: hidden; }
 
 body {
   font-family: var(--font);
