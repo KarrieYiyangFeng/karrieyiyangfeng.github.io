@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karrie Yiyang Feng — Beyond Boundaries</title>
+  <meta name="description" content="Karrie Yiyang Feng — Designing Interactions Between Systems. Spatial Design, Human Interaction, Material Systems, Emerging Technology." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Grain / noise overlay applied site-wide -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ===== INTRO: horizontal deck (home → cover). Full viewport. ===== -->
+  <div class="intro" id="intro">
+    <div class="deck__track" id="track">
+
+      <!-- PANEL 0 — START (home.png). Click anywhere → slide left to cover. -->
+      <section class="panel panel--home" id="panel-home" data-advance="1" role="button" tabindex="0" aria-label="Enter — click anywhere to continue">
+        <img class="home-img" src="image/home.png" alt="Beyond Boundaries" />
+
+        <nav class="nav nav--onlight">
+          <div class="nav__left">
+            <a href="#" class="nav__link is-active" data-goto="0">Home</a>
+            <a href="#" class="nav__link" data-scrollto="work">Work</a>
+          </div>
+          <div class="nav__title">KARRIE YIYANG FENG</div>
+          <div class="nav__right"></div>
+        </nav>
+
+        <div class="hint" aria-hidden="true">click anywhere to begin</div>
+      </section>
+
+      <!-- PANEL 1 — COVER (1st_cover.png). Down arrow → scroll DOWN to work. -->
+      <section class="panel panel--cover" id="panel-cover">
+        <img class="cover-img" src="image/1st_cover.png" alt="Beyond Boundary — scroll to see my work" />
+
+        <button class="chevron" data-scrollto="work" aria-label="Scroll down to view work">
+          <svg viewBox="0 0 40 24" width="40" height="24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6l16 14L36 6"/></svg>
+        </button>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ===== WORK: lives BELOW the intro — reached by scrolling down ===== -->
+  <section class="panel--work" id="panel-work">
+    <nav class="nav nav--dark">
+      <div class="nav__left">
+        <a href="#" class="nav__link" data-scrollto="top">Home</a>
+        <a href="#" class="nav__link is-active" data-scrollto="work">Work</a>
+      </div>
+      <div class="nav__title">KARRIE YIYANG FENG</div>
+      <div class="nav__right"></div>
+    </nav>
+
+    <div class="work__glow" aria-hidden="true"></div>
+
+    <div class="work__grid">
+      <!-- 1 --><a class="tile" href="#" data-project="between-tides">
+        <img src="image/between_tide.png" alt="Between Tides" loading="lazy"
+             onerror="this.remove();this.closest('.tile').classList.add('is-empty')">
+        <span class="tile__ph">01</span>
+        <div class="tile__overlay"><h3 class="tile__title">Between Tides</h3><p class="tile__year">2026</p></div>
+      </a>
+      <!-- 2 --><a class="tile" href="#" data-project="waves-of-interaction">
+        <img src="image/waves_of_interaction.png" alt="Waves of Interaction" loading="lazy"
+             onerror="this.remove();this.closest('.tile').classList.add('is-empty')">
+        <span class="tile__ph">02</span>
+        <div class="tile__overlay"><h3 class="tile__title">Waves of Interaction</h3><p class="tile__year">2025</p></div>
+      </a>
+      <!-- 3 --><a class="tile" href="#" data-project="river-of-words">
+        <img src="image/river_of_words.png" alt="River of Words" loading="lazy"
+             onerror="this.remove();this.closest('.tile').classList.add('is-empty')">
+        <span class="tile__ph">03</span>
+        <div class="tile__overlay"><h3 class="tile__title">River of Words</h3><p class="tile__year">2025</p></div>
+      </a>
+      <!-- 4 --><a class="tile" href="#" data-project="umi-gripper">
+        <img src="image/UMI_Gripper.png" alt="UMI Gripper" loading="lazy"
+             onerror="this.remove();this.closest('.tile').classList.add('is-empty')">
+        <span class="tile__ph">04</span>
+        <div class="tile__overlay"><h3 class="tile__title">UMI Gripper</h3><p class="tile__year">2026</p></div>
+      </a>
+      <!-- 5 --><a class="tile" href="#" data-project="harmony-in-chaos">
+        <img src="image/Harmony_in_Chaos.png" alt="Harmony in Chaos" loading="lazy"
+             onerror="this.remove();this.closest('.tile').classList.add('is-empty')">
+        <span class="tile__ph">05</span>
+        <div class="tile__overlay"><h3 class="tile__title">Harmony in Chaos</h3><p class="tile__year">2023</p></div>
+      </a>
+      <!-- 6 --><a class="tile" href="#" data-project="other-works">
+        <img src="image/Other_works.png" alt="Other Works" loading="lazy"
+             onerror="this.remove();this.closest('.tile').classList.add('is-empty')">
+        <span class="tile__ph">06</span>
+        <div class="tile__overlay"><h3 class="tile__title">Other Works</h3><p class="tile__year">2026</p></div>
+      </a>
+    </div>
+
+    <footer class="work__footer">
+      <span>© <span id="year"></span> Karrie Yiyang Feng · Beyond Boundaries</span>
+    </footer>
+  </section>
+
+  <!-- Back to start (fixed; appears once you've scrolled to work) -->
+  <button class="to-top" data-scrollto="top" aria-label="Back to start">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+  </button>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
