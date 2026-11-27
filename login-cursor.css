@@ -1,0 +1,38 @@
+/* Hide scrollbars while preserving scrolling. */
+* { scrollbar-width: none; }
+::-webkit-scrollbar { display: none; }
+
+/* =========================================================
+   Custom cursor — soft gray blurred square with a trailing tail
+   ========================================================= */
+/* Hide the native cursor only on fine-pointer (mouse) devices */
+@media (hover: hover) and (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * { cursor: none !important; }
+}
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 20px; height: 20px;
+  margin: -10px 0 0 -10px;           /* center on the pointer */
+  border-radius: 5px;
+  background: rgba(125, 125, 130, 0.55);
+  filter: blur(4px);                 /* blurred edges */
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 10001;                    /* above grain overlay */
+  will-change: transform, opacity;
+}
+
+.cursor-point {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 2px;
+  margin: -1px 0 0 -1px;
+  border-radius: 50%;
+  background: #fff;
+  pointer-events: none;
+  z-index: 10002;
+}

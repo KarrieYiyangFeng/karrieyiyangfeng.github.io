@@ -1,138 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Karrie Yiyang Feng — Beyond Boundaries</title>
-  <meta name="description" content="Karrie Yiyang Feng — Designing Interactions Between Systems. Spatial Design, Human Interaction, Material Systems, Emerging Technology." />
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>KARRIE YIYANG FENG</title>
+  <link rel="stylesheet" href="/login-cursor.css">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 1.5rem;
+      background: #e9e9ea url("/login-background.png") center / cover no-repeat fixed;
+      color: #fff;
+      font: 1rem Helvetica, Arial, sans-serif;
+    }
+    main { width: min(100%, 24rem); }
+    h1 {
+      margin: 0 0 1.75rem;
+      text-shadow: 0 1px 6px #323235;
+      font-size: clamp(1.15rem, 6vw, 2rem);
+      font-weight: 300;
+      text-align: center;
+      white-space: nowrap;
+    }
+    form { display: grid; gap: .8rem; }
+    p { margin: 0 0 .5rem; text-shadow: 0 1px 6px #323235; }
+    .password-field { position: relative; }
+    input[type="password"] {
+      width: 100%;
+      font: inherit;
+      padding: .85rem 3.25rem .85rem .85rem;
+      border: 1px solid transparent;
+      background: #fff;
+      color: #323235;
+      box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.85);
+    }
+    input::placeholder { color: #aaa; opacity: 1; }
+    input:focus::placeholder { color: transparent; }
+    button {
+      position: absolute;
+      inset: 0 0 0 auto;
+      width: 3rem;
+      border: 0;
+      background: transparent;
+      color: #323235;
+      font: inherit;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+    button span { display: inline-block; filter: blur(1px); }
+    button:hover span, button:focus-visible span { filter: none; }
+    button:focus-visible { outline: 2px solid #323235; outline-offset: -4px; }
+  </style>
 </head>
 <body>
-  <!-- Grain / noise overlay applied site-wide -->
-  <div class="grain" aria-hidden="true"></div>
-
-  <!-- ===== INTRO: horizontal deck (home → cover). Full viewport. ===== -->
-  <div class="intro" id="intro">
-    <div class="deck__track" id="track">
-
-      <!-- PANEL 0 — START (home.png). Click anywhere → slide left to cover. -->
-      <section class="panel panel--home" id="panel-home" data-advance="1" role="button" tabindex="0" aria-label="Enter — click anywhere to continue">
-        <img class="home-img" src="image/home_original.png" alt="" />
-
-        <div class="home__content">
-          <h1 class="home__title">BEYOND BOUNDARIES</h1>
-          <p class="home__subtitle">Designing Interactions Between Systems</p>
-
-          <div class="home__meta">
-            <p class="home__tags">Spatial Design&nbsp;&nbsp;|&nbsp;&nbsp;Human Interaction&nbsp;&nbsp;|&nbsp;&nbsp;Material Systems&nbsp;&nbsp;|&nbsp;&nbsp;Emerging Technology</p>
-            <p class="home__name">KARRIE YIYANG FENG</p>
-
-            <div class="home__social">
-              <a href="https://www.linkedin.com/in/yiyang-feng-fyy" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.82-2.05 3.75-2.05C20.4 8.65 21 11.1 21 14.25V21h-4v-5.9c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21H9z"/></svg>
-              </a>
-              <a href="mailto:yfeng011210@gmail.com" aria-label="Email" class="social-link">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="hint" aria-hidden="true">click anywhere to begin</div>
-      </section>
-
-      <!-- PANEL 1 — COVER (1st_cover.png). Down arrow → scroll DOWN to work. -->
-      <section class="panel panel--cover" id="panel-cover">
-        <img class="cover-img" src="image/1st_cover.png" alt="" />
-
-        <nav class="nav nav--dark">
-          <div class="nav__left">
-            <a href="#" class="nav__link" data-goto="0">Home</a>
-            <a href="#" class="nav__link" data-scrollto="work">Work</a>
-          </div>
-          <div class="nav__title">KARRIE YIYANG FENG</div>
-          <div class="nav__right"></div>
-        </nav>
-
-        <div class="cover__center">
-          <h2 class="cover__word" aria-label="BEYOND BOUNDARY"><span class="ltr">B</span><span class="ltr">E</span><span class="ltr">Y</span><span class="ltr">O</span><span class="ltr">N</span><span class="ltr">D</span><span class="ltr spc" aria-hidden="true"></span><span class="ltr">B</span><span class="ltr">O</span><span class="ltr">U</span><span class="ltr">N</span><span class="ltr">D</span><span class="ltr">A</span><span class="ltr">R</span><span class="ltr">Y</span></h2>
-        </div>
-
-        <button class="chevron" data-scrollto="work" aria-label="Scroll down to view work">
-          <svg viewBox="0 0 40 24" width="40" height="24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6l16 14L36 6"/></svg>
-        </button>
-      </section>
-
-    </div>
-  </div>
-
-  <!-- ===== WORK: lives BELOW the intro — reached by scrolling down ===== -->
-  <section class="panel--work" id="panel-work">
-    <nav class="nav nav--dark">
-      <div class="nav__left">
-        <a href="#" class="nav__link" data-scrollto="top">Home</a>
-        <a href="#" class="nav__link is-active" data-scrollto="work">Work</a>
+  <main>
+    <h1>KARRIE YIYANG FENG</h1>
+    <p id="password-status" aria-live="polite"></p>
+    <noscript><p>Enable JavaScript to open the portfolio.</p></noscript>
+    <form id="portfolio-unlock" method="post" action="/portfolio-gate.html">
+      <div class="password-field">
+        <input id="password" type="password" autocomplete="current-password" aria-label="Password" placeholder="Password..." required>
+        <button type="submit" aria-label="Open portfolio"><span aria-hidden="true">→</span></button>
       </div>
-      <div class="nav__title">KARRIE YIYANG FENG</div>
-      <div class="nav__right"></div>
-    </nav>
-
-    <div class="work__grid">
-      <!-- 1 --><a class="tile" href="#" data-project="between-tides">
-        <img src="image/between_tide.png" alt="Between Tides" loading="lazy"
-             onerror="this.remove();this.closest('.tile').classList.add('is-empty')">
-        <span class="tile__ph">01</span>
-        <div class="tile__overlay"><h3 class="tile__title">Between Tides</h3><p class="tile__year">2026</p></div>
-      </a>
-      <!-- 2 --><a class="tile" href="#" data-project="waves-of-interaction">
-        <img src="image/waves_of_interaction.png" alt="Waves of Interaction" loading="lazy"
-             onerror="this.remove();this.closest('.tile').classList.add('is-empty')">
-        <span class="tile__ph">02</span>
-        <div class="tile__overlay"><h3 class="tile__title">Waves of Interaction</h3><p class="tile__year">2025</p></div>
-      </a>
-      <!-- 3 --><a class="tile" href="#" data-project="river-of-words">
-        <img src="image/river_of_words.png" alt="River of Words" loading="lazy"
-             onerror="this.remove();this.closest('.tile').classList.add('is-empty')">
-        <span class="tile__ph">03</span>
-        <div class="tile__overlay"><h3 class="tile__title">River of Words</h3><p class="tile__year">2025</p></div>
-      </a>
-      <!-- 4 --><a class="tile" href="#" data-project="umi-gripper">
-        <img src="image/UMI_Gripper.png" alt="UMI Gripper" loading="lazy"
-             onerror="this.remove();this.closest('.tile').classList.add('is-empty')">
-        <span class="tile__ph">04</span>
-        <div class="tile__overlay"><h3 class="tile__title">UMI Gripper</h3><p class="tile__year">2026</p></div>
-      </a>
-      <!-- 5 --><a class="tile" href="#" data-project="harmony-in-chaos">
-        <img src="image/Harmony_in_Chaos.png" alt="Harmony in Chaos" loading="lazy"
-             onerror="this.remove();this.closest('.tile').classList.add('is-empty')">
-        <span class="tile__ph">05</span>
-        <div class="tile__overlay"><h3 class="tile__title">Harmony in Chaos</h3><p class="tile__year">2023</p></div>
-      </a>
-      <!-- 6 --><a class="tile" href="#" data-project="other-works">
-        <img src="image/Other_works.png" alt="Other Works" loading="lazy"
-             onerror="this.remove();this.closest('.tile').classList.add('is-empty')">
-        <span class="tile__ph">06</span>
-        <div class="tile__overlay"><h3 class="tile__title">Other Works</h3><p class="tile__year">2026</p></div>
-      </a>
-    </div>
-
-    <footer class="work__footer">
-      <span>© <span id="year"></span> Karrie Yiyang Feng · Beyond Boundaries</span>
-    </footer>
-  </section>
-
-  <!-- Lightbox: opens the full project image on click -->
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button class="lightbox__close" aria-label="Close">&times;</button>
-    <img class="lightbox__img" src="" alt="" />
-    <div class="lightbox__cap"></div>
-  </div>
-
-  <!-- Back to start (fixed; appears once you've scrolled to work) -->
-  <button class="to-top" data-scrollto="top" aria-label="Back to start">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
-  </button>
-
-  <script src="js/script.js"></script>
+    </form>
+  </main>
+  <script src="/login-cursor.js" defer></script>
+  <script src="/gate.js" defer></script>
 </body>
 </html>
